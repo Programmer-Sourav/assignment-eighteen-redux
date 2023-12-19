@@ -63,7 +63,7 @@ export const addItemToInventory = (itemToAdd) =>(
     dispatch(addItemToInventory(itemToAdd))
     console.log(4444, itemToAdd)
     try {
-        const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/sales", {
+        const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/items", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -167,7 +167,7 @@ export const addItemToInventory = (itemToAdd) =>(
     dispatch(addItemToInventory(itemToAdd))
    
     try {
-        const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/items", {
+        const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/sales", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

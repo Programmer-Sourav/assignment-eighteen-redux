@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { addItemToInventory, fetchItemsSuccess, saveItemToInventory } from "./actions/actioncreators"
+import { addItemToInventory, fetchItemsSuccess, saveItemToInventory, saveSalesToInventory } from "./actions/actioncreators"
 
 export default function AddSalesItem(){
 
@@ -28,7 +28,7 @@ export default function AddSalesItem(){
         description: saleDescription, 
         revenue: totalRevenue
        }
-       dispatch(saveItemToInventory(item))
+       dispatch(saveSalesToInventory(item))
        
    }
 
