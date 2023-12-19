@@ -12,9 +12,7 @@ export default function InventoryList(){
     const loading = useSelector((state) => state.loading);
 
    
-    const categories = inventoryList.reduce((acc, currentItem) => (!acc.includes(currentItem.category) ? [...acc, currentItem.category] : acc),
-        []
-      )
+    const categories = inventoryList.reduce((acc, currentItem) =>!acc.includes(currentItem.category.toLowerCase()) ? [...acc, currentItem.category.toLowerCase()] : acc,[]);
 
     
 
@@ -24,11 +22,11 @@ export default function InventoryList(){
     return(
         <div>
          {categories.map((category, index) => (
-  <ul key={index}>
-    <h2>{category}</h2>
-    {inventoryList
-      .filter((currentItem) => currentItem.category === category)
-      .map((inventory) => (
+         <ul key={index}>
+         <h2>{category.charAt(0).toUpperCase() + category.substring(1)}</h2>
+        {inventoryList
+        .filter((currentItem) => currentItem.category === category)
+        .map((inventory) => (
         <InventoryItem key={inventory.id} item={inventory} />
       ))}
   </ul>
