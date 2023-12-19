@@ -27,7 +27,7 @@ export default function InventoryList(){
         {inventoryList
         .filter((currentItem) => currentItem.category === category)
         .map((inventory) => (
-        <InventoryItem key={inventory.id} item={inventory} />
+        <InventoryItem key={index} item={inventory} />
       ))}
   </ul>
 ))}
