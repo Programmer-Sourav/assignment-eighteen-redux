@@ -42,7 +42,7 @@ export default function AddItemToInventory(){
             </div>
 
 
-           <button onClick={()=>{onSubmitClick()}}>Submit</button>
+           <button onClick={()=>{onSubmitClick()}} className="buttonstyle">Submit</button>
         </div>
     )
 }

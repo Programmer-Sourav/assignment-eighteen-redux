@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux"
 import { deleteItemFromInventory } from "../actions/actioncreators"
 import { useNavigate } from "react-router-dom"
 
+import "../style.css"
+
 export default function InventoryItem({item}){
 
    const dispatch = useDispatch()
@@ -23,8 +25,9 @@ export default function InventoryItem({item}){
                 <p><strong>Item name: </strong> {item.name}</p>
                 <p><strong>Item Quantity:</strong>{item.quantity}</p>
                 <p><strong>Item Price: </strong>{item.price}</p>
-                <button onClick={()=>{deleteItem(item._id)}}>Delete</button>
-                <button onClick={()=>{editItem(item._id)}}>Edit</button>
+                <p><strong>Quantity Left:</strong>{item.quantityLeft}</p>
+                <button onClick={()=>{deleteItem(item._id)}} className="buttonstyle">Delete</button>
+                <button onClick={()=>{editItem(item._id)}} className="buttonstyle">Edit</button>
                 </div>
             }
         </div>

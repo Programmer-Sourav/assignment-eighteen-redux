@@ -48,12 +48,12 @@ export const addItemToInventory = (itemToAdd) =>(
      }
     
      export const deleteSale = (itemId) =>({
-         type: "DELETE_SALE_ITEM",
+         type: "DELETE_SALES_ITEM",
          payload: itemId
      })
     
      export const editSale = (itemId) =>({
-        type: "EDIT_SALE_ITEM",
+        type: "EDIT_SALES_ITEM",
         payload: itemId
      })
 
@@ -61,9 +61,9 @@ export const addItemToInventory = (itemToAdd) =>(
   export const saveItemToInventory = (itemToAdd) => async (dispatch) =>{
    
     dispatch(addItemToInventory(itemToAdd))
-   
+    console.log(4444, itemToAdd)
     try {
-        const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/items", {
+        const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/sales", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export const addItemToInventory = (itemToAdd) =>(
         if (response.ok) {
           console.log("Item added successfully to the server.");
         } else {
-          console.error("Failed to add item to the server.");
+          console.error("Failed to add sales to the server.");
         }
       } catch (error) {
         console.error("Error occurred while adding item:", error);
@@ -83,7 +83,7 @@ export const addItemToInventory = (itemToAdd) =>(
 
   export const fetchItemsSuccess = () => async (dispatch) =>{
      try{
-        fetchItemsLoading()
+        dispatch(fetchItemsLoading())
         const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/items")
         if(response.ok){    
         const receivedResponse = await response.json();
@@ -91,7 +91,7 @@ export const addItemToInventory = (itemToAdd) =>(
         dispatch(fetchItemsFromInventory(itemList))
         }
         else{
-            fetchItemError("Error while fetching data")
+            dispatch(fetchItemError("Error while fetching data"))
         }
      }
      catch(error){
@@ -99,17 +99,36 @@ export const addItemToInventory = (itemToAdd) =>(
      }
   }
 
+  export const fetchSalesSuccess = () => async (dispatch) =>{
+    console.log(1233)
+    try{
+      dispatch(fetchSalesLoading())
+      const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/sales")
+      if(response.ok){    
+        const receivedResponse = await response.json();
+        console.log(555, receivedResponse)
+        const itemList = receivedResponse.sales;
+        dispatch(fetchSalesFromInventory(itemList))
+        }
+        else{
+            dispatch(fetchItemError("Error while fetching data"))
+        }
+    }
+    catch(error){
+      dispatch(fetchSalesError(error.message))
+    }
+  }
+
   export const deleteItemFromInventory = (itemToBeDeleted) => async (dispatch) =>{
    
     dispatch(deleteItem(itemToBeDeleted))
    
     try {
-        const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/items", {
+        const response = await fetch(`https://inventory-assignment18-be.developersourav.repl.co/items/${itemToBeDeleted}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify(itemToBeDeleted),
+          }
         });
         if (response.ok) {
           console.log("Item deleted successfully from the server.");
@@ -121,13 +140,13 @@ export const addItemToInventory = (itemToAdd) =>(
       }
   }
   
-  export const editItemToInventory = (itemToEdit) => async (dispatch) =>{
+  export const editItemToInventory = (itemToEdit, itemId) => async (dispatch) =>{
    
     dispatch(editItem(itemToEdit))
-   
+    console.log(1112, itemToEdit)
     try {
-        const response = await fetch("", {
-          method: "POST",
+        const response = await fetch(`https://inventory-assignment18-be.developersourav.repl.co/items/${itemId}`, {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -164,6 +183,51 @@ export const addItemToInventory = (itemToAdd) =>(
         console.error("Error occurred while adding item:", error);
       }
   }  
+
+  export const deleteSaleFromInventory = (itemToBeDeleted) => async (dispatch) =>{
+   
+    dispatch(deleteSale(itemToBeDeleted))
+   
+    try {
+        const response = await fetch(`https://inventory-assignment18-be.developersourav.repl.co/sales/${itemToBeDeleted}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        if (response.ok) {
+          console.log("Sales deleted successfully from the server.");
+        } else {
+          console.error("Failed to delete sales data from the server.");
+        }
+      } catch (error) {
+        console.error("Error occurred while deleting item:", error);
+      }
+  }
+
+
+  export const editSalesItem = (itemToEdit, itemId) => async (dispatch) =>{
+   
+    dispatch(editSale(itemToEdit))
+    console.log(333, itemToEdit, itemId)
+   
+    try {
+        const response = await fetch(`https://inventory-assignment18-be.developersourav.repl.co/sales/${itemId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(itemToEdit)
+        });
+        if (response.ok) {
+          console.log("Item edited successfully to the server.");
+        } else {
+          console.error("Failed to edit item to the server.");
+        }
+      } catch (error) {
+        console.error("Error occurred while editing item:", error);
+      }
+  } 
 
 
 

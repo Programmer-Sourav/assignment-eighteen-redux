@@ -16,6 +16,7 @@ const InventoryReducer = (state = initialState, action) =>{
         case "FETCH_ITEMS_ERROR":
             return {...state, loading: false, error: action.payload}
         case "FETCH_SALES_SUCCESS": 
+           console.log(333, action.payload)
            return {...state, salesList: action.payload, loading: false, error: ""} 
         case "FETCH_SALES_LOADING":
             return {...state, loading: true, error: ""}   
@@ -38,7 +39,8 @@ const InventoryReducer = (state = initialState, action) =>{
                  return {...state, salesList: state.salesList.map((item)=>(item._id===action.payload.id? {...item, 
                      sold: action.payload.sold,
                      quantity: action.payload.quantity,
-                     price: action.payload.price } : item))}                    
+                     price: action.payload.price,
+                     description : action.payload.description } : item))}                    
         default: 
         return state   
     }

@@ -28,7 +28,7 @@ export default function EditInventoryItem(){
          quantity: itemQty, 
          price: itemPrice
         }
-        dispatch(editItemToInventory(item))
+        dispatch(editItemToInventory(item, id))
     
     }
  
