@@ -18,7 +18,7 @@ export default function InventoryList(){
 
     useEffect(()=>{dispatch(fetchItemsSuccess())},[])
 
-
+    console.log(123, inventoryList)
     return(
         <div>
          {categories.map((category, index) => (

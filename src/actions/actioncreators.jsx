@@ -57,6 +57,21 @@ export const addItemToInventory = (itemToAdd) =>(
         payload: itemId
      })
 
+
+
+     export const fetchSalesReportFromInventory = (items) =>({
+      type: "FETCH_SALES_REPORT_SUCCESS",
+      payload: items
+   })   
+  
+   export const fetchSalesReportLoading = () =>{
+      return {type: "FETCH_SALES_REPORT_LOADING"}
+   }
+  
+   export const fetchSalesReportError = (error) =>{
+      return {type: "FETCH_SALES_REPORT_ERROR", payload: error}
+   }
+
      
   export const saveItemToInventory = (itemToAdd) => async (dispatch) =>{
    
@@ -228,6 +243,26 @@ export const addItemToInventory = (itemToAdd) =>(
         console.error("Error occurred while editing item:", error);
       }
   } 
+
+
+  export const fetchItemsWithSales = () => async (dispatch) =>{
+    try{
+      dispatch(fetchSalesReportLoading())
+      const response = await fetch("https://inventory-assignment18-be.developersourav.repl.co/salesreport")
+      if(response.ok){    
+        const receivedResponse = await response.json();
+        console.log(666, receivedResponse)
+        const itemList = receivedResponse.sales;
+        dispatch(fetchSalesReportFromInventory(itemList))
+        }
+        else{
+            dispatch(fetchItemError("Error while fetching data"))
+        }
+    }
+    catch(error){
+      dispatch(fetchSalesReportError(error.message))
+    }
+  }
 
 
 

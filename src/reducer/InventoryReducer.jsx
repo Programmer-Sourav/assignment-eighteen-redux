@@ -1,6 +1,7 @@
 export const initialState = {
      itemsList: [],
      salesList: [],
+     salesReport: [],
      error: "",
      loading: false
 }
@@ -40,7 +41,14 @@ const InventoryReducer = (state = initialState, action) =>{
                      sold: action.payload.sold,
                      quantity: action.payload.quantity,
                      price: action.payload.price,
-                     description : action.payload.description } : item))}                    
+                     description : action.payload.description } : item))}   
+                     
+         case "FETCH_SALES_REPORT_SUCCESS": 
+              return {...state, salesReport: action.payload, loading: false, error: ""} 
+        case "FETCH_SALES_REPORT_LOADING":
+              return {...state, loading: true, error: ""}   
+        case "FETCH_SALES_REPORT_ERROR":
+              return {...state, loading: false, error: action.payload}               
         default: 
         return state   
     }
